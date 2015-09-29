@@ -42,7 +42,7 @@ cat ~/.ufwip.blocked | column
 #If your current connection IP is/was blocked from UFW this will activate
 if grep -Fxq $myip ~/.ufwip.blocked
 then
-        echo -e "\nYour current local IP address was \e[31mBLOCKED\e[0m from UFW"
+        echo -e "\nYour current IP address is/was \e[31mBLOCKED\e[0m from UFW"
         echo -e "Use \"\x1b[4msudo ufw allow from $myip\x1b[0m\" to unblock it"
 fi
 

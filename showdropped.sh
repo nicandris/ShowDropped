@@ -6,6 +6,7 @@ text3="Your IP address is: "
 
 #Delete old files
 rm -f ~/.ufwip.blocked
+rm -f ~/.ufwip.blocked.rd
 rm -f ~/.ufwip.blocked.old
 
 #Get the DROPED  connections from syslog
@@ -21,8 +22,10 @@ cut ~/.syslogufw.blocked -c5- | cat > ~/.ufwip.blocked
 rm -f ~/.syslogufw.blocked
 
 #Remove duplicates
-awk '!a[$0]++' ~/.ufwip.blocked >> ~/.ufwip.blocked.old
-mv ~/.ufwip.blocked.old ~/.ufwip.blocked
+awk '!a[$0]++' ~/.ufwip.blocked > ~/.ufwip.blocked.rd
+
+#Sort
+sort -k +39 ~/.ufwip.blocked.rd > ~/.ufwip.blocked
 
 #Show DROPPED connectrions from iptables
 sudo iptables -L -vn | grep --color DROP
